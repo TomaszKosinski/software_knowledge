@@ -22,7 +22,8 @@ void print_id (int id) {
 void go() {
     std::cout<<"go acquires the lock"<<std::endl;
     std::unique_lock<std::mutex> lck(mtx);
-    //ready = true;
+    // comment this line to understand how this flag is used
+    ready = true; 
     std::cout<<"go calles notify"<<std::endl;
     cv.notify_all();
 }

@@ -7,19 +7,23 @@
 std::mutex mtx;
 
 void print_even (int x) {
-  if (x%2==0) std::cout << x << " is even\n";
-  else throw (std::logic_error("not even"));
+    if (x%2==0) {
+        std::cout << x << " is even\n";
+    } else {
+        throw (std::logic_error("not even"));
+    }
 }
 
 void print_thread_id (int id) {
-  try {
-    // using a local lock_guard to lock mtx guarantees unlocking on destruction / exception:
-    std::lock_guard<std::mutex> lck (mtx);
-    print_even(id);
-  }
-  catch (std::logic_error&) {
-    std::cout << "[exception caught]\n";
-  }
+    try {
+        // using a local lock_guard to lock mtx guarantees unlocking on destruction / exception:
+        std::lock_guard<std::mutex> lck (mtx);
+        print_even(id);
+    }
+    catch (std::logic_error&) 
+    {
+        std::cout << "[exception caught]\n";
+    }
 }
 
 int main ()
@@ -34,5 +38,5 @@ int main ()
         th.join();
     }
     std::cout<<"All threads joined\n";
-  return 0;
+    return 0;
 }
